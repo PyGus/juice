@@ -1,4 +1,4 @@
-$RepoDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$RepoDir = $PSScriptRoot
 $SkillsDir = Join-Path $HOME ".claude\skills"
 $Reserved = @("docs")
 
