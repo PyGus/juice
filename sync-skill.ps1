@@ -5,6 +5,7 @@ param(
     [string]$From = ""
 )
 
+$ErrorActionPreference = 'Stop'
 $RepoDir = $PSScriptRoot
 
 if ($From) {
