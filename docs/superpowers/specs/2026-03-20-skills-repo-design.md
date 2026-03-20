@@ -14,6 +14,8 @@ juice/
 ├── README.md              ← skill index table (name, purpose, trigger)
 ├── install.sh             ← Mac/Linux: symlinks each skill folder into ~/.claude/skills/
 ├── install.ps1            ← Windows: same, using PowerShell symlinks
+├── sync-skill.sh          ← Mac/Linux: imports a new skill from user or project scope into the repo
+├── sync-skill.ps1         ← Windows: same
 └── <skill-name>/
     └── SKILL.md           ← one folder per skill, flat layout
 ```
@@ -42,6 +44,22 @@ juice/
 
 Both scripts print a summary of linked/skipped skills.
 
+## Sync Scripts
+
+Used to import a newly created skill (from the skill creator) into the repo. Only needed for **new** skills — once a skill is in the repo and symlinked, edits via the skill creator already reflect in the repo.
+
+### `sync-skill.sh <skill-name> [--from <path>]` (Mac/Linux)
+- Default source: `~/.claude/skills/<skill-name>` (user scope)
+- `--from <path>`: use `<path>/.claude/skills/<skill-name>` instead (project scope)
+- Copies skill folder into repo root
+- Removes original from source location
+- Re-runs `install.sh` to put the symlink back in place
+- Errors if the skill already exists in the repo (prevents accidental overwrite)
+
+### `sync-skill.ps1 -SkillName <name> [-From <path>]` (Windows)
+- Same logic as `sync-skill.sh`
+- Same error behavior on existing skills
+
 ## README
 
 - One-liner description
@@ -59,7 +77,15 @@ bash install.sh        # Mac
 ./install.ps1          # Windows
 ```
 
-**Adding a skill (from outside the repo — e.g. a skill not yet symlinked from juice):**
+**Syncing a new skill created by the skill creator:**
+```bash
+bash sync-skill.sh my-skill                        # from user scope (~/.claude/skills/)
+bash sync-skill.sh my-skill --from /path/to/repo   # from project scope
+./sync-skill.ps1 -SkillName my-skill               # Windows
+```
+This copies the skill into the repo, removes the original, and re-runs install to symlink it back.
+
+**Adding a skill manually (from outside the repo):**
 ```
 cp -r ~/.claude/skills/my-skill ./my-skill
 git add my-skill && git commit -m "add my-skill"
@@ -69,6 +95,5 @@ Then re-run the install script to create the symlink. If the skill is already in
 ## Out of Scope
 
 - Migration script (user copies existing skills manually)
-- `add-skill.sh` helper
 - GitHub Pages / marketplace
 - Git submodules or versioning beyond git tags
