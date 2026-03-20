@@ -35,6 +35,7 @@ powershell -ExecutionPolicy Bypass -File sync-skill.ps1 -SkillName my-skill  # W
 **Manually:**
 ```bash
 cp -r ~/.claude/skills/my-skill ./my-skill
+rm -rf ~/.claude/skills/my-skill   # remove original so install.sh can symlink it back
 bash install.sh
 git add my-skill && git commit -m "add my-skill"
 ```
