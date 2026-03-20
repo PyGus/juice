@@ -27,15 +27,17 @@ juice/
 ### `install.sh` (Mac/Linux)
 - Resolves repo root relative to script location
 - Creates `~/.claude/skills/` if missing
-- Loops over top-level directories, skips dotfiles and non-directories
-- Creates symlink: `~/.claude/skills/<name>` → `<repo>/<name>/`
+- Loops over top-level directories, skips dotfiles, non-directories, and reserved folders (`docs`)
+- Creates symlink: `~/.claude/skills/<name>` → `<repo>/<name>/` (link is `~/.claude/skills/<name>`, target is `<repo>/<name>/`)
 - Warns (does not overwrite) if symlink already exists
 - Idempotent — safe to re-run when new skills are added
 
 ### `install.ps1` (Windows)
 - Same logic using `New-Item -ItemType SymbolicLink`
+- Skips dotfiles, non-directories, and reserved folders (`docs`)
 - Skips existing symlinks with a warning
 - Requires Windows developer mode (no admin elevation needed)
+- Run as: `powershell -ExecutionPolicy Bypass -File install.ps1` (or set `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` once)
 - Idempotent
 
 Both scripts print a summary of linked/skipped skills.
@@ -57,12 +59,12 @@ bash install.sh        # Mac
 ./install.ps1          # Windows
 ```
 
-**Adding a skill:**
+**Adding a skill (from outside the repo — e.g. a skill not yet symlinked from juice):**
 ```
 cp -r ~/.claude/skills/my-skill ./my-skill
 git add my-skill && git commit -m "add my-skill"
 ```
-Then re-run the install script to create the symlink.
+Then re-run the install script to create the symlink. If the skill is already in the repo, no copy is needed — just re-run the install script.
 
 ## Out of Scope
 
