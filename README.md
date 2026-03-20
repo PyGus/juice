@@ -21,7 +21,7 @@ Skills are symlinked into `~/.claude/skills/` so edits in the repo reflect immed
 
 | Skill | Purpose | Triggers when... |
 |-------|---------|-----------------|
-| _(add your skills here)_ | | |
+| `opencode-glm-plan` | Delegates coding implementation tasks to OpenCode/GLM-5 | User asks GLM/OpenCode to write/implement code ("delegate to GLM", "have opencode build X", "let GLM do this") |
 
 ## Adding Skills
 
