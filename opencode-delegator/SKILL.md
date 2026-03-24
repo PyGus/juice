@@ -1,5 +1,5 @@
 ---
-name: opencode-glm-plan
+name: opencode-delegator
 description: Delegates coding IMPLEMENTATION tasks to OpenCode/GLM-5 — GLM writes the code and files, Claude architects and reviews. Trigger when the user wants GLM/OpenCode to execute actual coding work rather than having Claude do it. Trigger on: "delegate to GLM", "have opencode write/implement X", "let GLM do this", "ask GLM to code X", "GLM should handle this", "use opencode to build/write X", "offload this to opencode/GLM", or any request where GLM/OpenCode should be the one producing code. Do NOT trigger for: read-only analysis, security review, architecture review, code explanation, or when the user explicitly wants Claude to write the code itself.
 ---
 
